@@ -3,6 +3,7 @@ from datetime import datetime
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
+from functools import lru_cache
 
 app = FastAPI()
 
@@ -16,10 +17,8 @@ class ConnectionManager:
         await websocket.accept()
         self.active_connections.append(websocket)
         
-
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
-
     
     async def send_personal_message(self, message: any, websocket: WebSocket):
         await websocket.send_text(message)
@@ -36,7 +35,7 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
-
+@lru_cache(maxsize=None)
 async def fibonacci(n: int) -> int:
     if n <= 0:
         return 0
@@ -55,7 +54,6 @@ async def startup_event():
 async def get(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
@@ -66,14 +64,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
                 n = int(data)
                 result = await fibonacci(n)
                 await manager.send_personal_message(f"Fibonacci({n}) = {result}", websocket)
-                for connection in manager.active_connections:
-                    if connection != websocket:
-                        await manager.send_personal_message(f"Client #{client_id} says: {data}", connection)
             except ValueError:
-                await manager.send_personal_message(f"You wrote: {data}", websocket)
-                for connection in manager.active_connections:
-                    if connection != websocket:
-                        await manager.send_personal_message(f"Client #{client_id} says: {data}", connection)
+                await manager.send_personal_message("Error: Only numbers are accepted.", websocket)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} has left the chat")
