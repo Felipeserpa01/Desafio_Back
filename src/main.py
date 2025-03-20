@@ -8,7 +8,6 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 
-
 class ConnectionManager:
     def __init__(self):
         self.active_connections: list[WebSocket] = []
@@ -34,7 +33,6 @@ class ConnectionManager:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             await self.broadcast(f"Current time: {current_time}")
             await asyncio.sleep(1)
-            
 
 manager = ConnectionManager()
 
@@ -49,18 +47,13 @@ async def fibonacci(n: int) -> int:
         a, b = b, a + b
     return b
 
-
-
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(manager.broadcast_time())
-    
-    
 
 @app.get("/")
 async def get(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
-
 
 
 @app.websocket("/ws/{client_id}")
@@ -69,13 +62,18 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     try: 
         while True:
             data = await websocket.receive_text()
-            n = int(data)
-            result = await fibonacci(n) 
-
-            await manager.send_personal_message(f"Fibonacci({n}) = {result}", websocket)
-            for connection in manager.active_connections:
-                if connection != websocket:
-                    await manager.send_personal_message(f"Client #{client_id} says: {data}", connection)
+            try:
+                n = int(data)
+                result = await fibonacci(n)
+                await manager.send_personal_message(f"Fibonacci({n}) = {result}", websocket)
+                for connection in manager.active_connections:
+                    if connection != websocket:
+                        await manager.send_personal_message(f"Client #{client_id} says: {data}", connection)
+            except ValueError:
+                await manager.send_personal_message(f"You wrote: {data}", websocket)
+                for connection in manager.active_connections:
+                    if connection != websocket:
+                        await manager.send_personal_message(f"Client #{client_id} says: {data}", connection)
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} has left the chat")
