@@ -17,13 +17,13 @@ PostgreSQL: Banco de dados relacional para armazenar informações sobre os usu�
 Docker: Ferramenta para containerização, facilitando a execução do projeto em qualquer ambiente.
 
 Docker Compose: Usado para orquestrar o servidor e o banco de dados em um único ambiente.
-
+---
 
 
 Instruções para Rodar o Projeto:
 Siga os passos abaixo para configurar e executar o projeto localmente.
 
-
+<br></br>
 Pré-requisitos:
 Docker: Instale o Docker em docker.com.
 
@@ -36,7 +36,7 @@ git clone https://github.com/Felipeserpa01/Desafio_Back.git
 cd Desafio_Back
 
 
-
+<br></br>
 Passo 2: Inicie o Projeto com Docker Compose
 Execute o seguinte comando para construir e iniciar os contêineres:
 
@@ -50,14 +50,14 @@ Iniciar o banco de dados PostgreSQL.
 Iniciar o servidor WebSocket na porta 8000.
 
 
-
+<br></br>
 Passo 3: Conecte-se ao Servidor WebSocket
 Abra um navegador web e acesse:
 
 localhost:8000 
 
 
-
+<br></br>
 Passo 4: Teste as Funcionalidades
 1. Data e Hora
 O servidor envia a data e hora atuais a cada segundo para todos os clientes conectados.
@@ -70,7 +70,7 @@ O servidor responderá com o valor de Fibonacci(n) (ex: Fibonacci(10) = 55).
 3. Gestão de Usuários Conectados
 Quando um cliente se conecta ou desconecta, o banco de dados PostgreSQL é atualizado automaticamente.
 
-
+---
 
 Passo 5: Parar o Projeto
 Para parar os contêineres, pressione Ctrl + C e execute:
