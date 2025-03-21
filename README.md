@@ -17,6 +17,7 @@ PostgreSQL: Banco de dados relacional para armazenar informações sobre os usu�
 Docker: Ferramenta para containerização, facilitando a execução do projeto em qualquer ambiente.
 
 Docker Compose: Usado para orquestrar o servidor e o banco de dados em um único ambiente.
+
 ---
 
 
