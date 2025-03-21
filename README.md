@@ -23,7 +23,6 @@ Docker Compose: Usado para orquestrar o servidor e o banco de dados em um único
 
 Instruções para Rodar o Projeto:
 Siga os passos abaixo para configurar e executar o projeto localmente.
-
 <br></br>
 Pré-requisitos:
 Docker: Instale o Docker em docker.com.
@@ -33,6 +32,7 @@ Docker Compose: Geralmente já vem com o Docker. Caso contrário, siga as instru
 Passo 1: Clone o Repositório
 Clone o repositório do projeto:
 ```git clone https://github.com/Felipeserpa01/Desafio_Back.git```
+<br></br>
 ```cd Desafio_Back```
 
 
@@ -40,6 +40,7 @@ Clone o repositório do projeto:
 Passo 2: Inicie o Projeto com Docker Compose
 Execute o seguinte comando para construir e iniciar os contêineres:
 ```docker-compose up --build```
+<br></br>
 Isso fará:
 
 Construir a imagem do servidor WebSocket.
