@@ -1,6 +1,6 @@
 Este projeto é um servidor WebSocket que permite a conexão de múltiplos clientes, oferecendo funcionalidades em tempo real, como o envio da data e hora atuais a cada segundo, o cálculo de números de Fibonacci sob demanda e a gestão de usuários conectados. Toda vez que um cliente se conecta ou desconecta, o sistema atualiza um banco de dados PostgreSQL para refletir o status atual dos usuários. O projeto foi desenvolvido utilizando tecnologias modernas e é executado em um ambiente containerizado com Docker e Docker Compose.
-
-
+---
+<p></p>
 
 Tecnologias Utilizadas:
 
