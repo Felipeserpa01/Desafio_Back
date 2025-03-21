@@ -4,6 +4,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from functools import lru_cache
+import psycopg2
 
 app = FastAPI()
 
@@ -33,7 +34,9 @@ class ConnectionManager:
             await self.broadcast(f"Current time: {current_time}")
             await asyncio.sleep(1)
 
+
 manager = ConnectionManager()
+
 
 @lru_cache(maxsize=None)
 async def fibonacci(n: int) -> int:
@@ -46,17 +49,34 @@ async def fibonacci(n: int) -> int:
         a, b = b, a + b
     return b
 
+
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(manager.broadcast_time())
+
 
 @app.get("/")
 async def get(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
+    conn = psycopg2.connect(
+        host="db",
+        database="db",
+        user="postgres",
+        password="postgres"
+    )
+    cur = conn.cursor()
+
     await manager.connect(websocket)
+
+
+    cur.execute("INSERT INTO connected_users (clientId) VALUES (%s)", (client_id,))
+    conn.commit()
+    print(f"Client #{client_id} has connected.")
+
     try: 
         while True:
             data = await websocket.receive_text()
@@ -69,3 +89,11 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(f"Client #{client_id} has left the chat")
+        
+
+        cur.execute("DELETE FROM connected_users WHERE clientId = %s", (str(client_id),))
+        conn.commit()
+        print(f"Client #{client_id} has disconnected.")
+    finally:
+        cur.close()
+        conn.close()
