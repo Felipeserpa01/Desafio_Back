@@ -33,7 +33,7 @@ Passo 1: Clone o Repositório
 Clone o repositório do projeto:
 
 git clone https://github.com/Felipeserpa01/Desafio_Back.git
-cd seu-repositorio
+cd Desafio_Back
 
 
 
