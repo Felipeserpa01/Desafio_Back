@@ -32,16 +32,14 @@ Docker Compose: Geralmente já vem com o Docker. Caso contrário, siga as instru
 
 Passo 1: Clone o Repositório
 Clone o repositório do projeto:
-
-git clone https://github.com/Felipeserpa01/Desafio_Back.git
-cd Desafio_Back
+```git clone https://github.com/Felipeserpa01/Desafio_Back.git```
+```cd Desafio_Back```
 
 
 <br></br>
 Passo 2: Inicie o Projeto com Docker Compose
 Execute o seguinte comando para construir e iniciar os contêineres:
-
-docker-compose up --build
+```docker-compose up --build```
 Isso fará:
 
 Construir a imagem do servidor WebSocket.
@@ -55,7 +53,7 @@ Iniciar o servidor WebSocket na porta 8000.
 Passo 3: Conecte-se ao Servidor WebSocket
 Abra um navegador web e acesse:
 
-localhost:8000 
+`localhost:8000`
 
 
 <br></br>
