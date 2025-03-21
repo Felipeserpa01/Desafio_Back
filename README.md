@@ -1,6 +1,9 @@
 Este projeto é um servidor WebSocket que permite a conexão de múltiplos clientes, oferecendo funcionalidades em tempo real, como o envio da data e hora atuais a cada segundo, o cálculo de números de Fibonacci sob demanda e a gestão de usuários conectados. Toda vez que um cliente se conecta ou desconecta, o sistema atualiza um banco de dados PostgreSQL para refletir o status atual dos usuários. O projeto foi desenvolvido utilizando tecnologias modernas e é executado em um ambiente containerizado com Docker e Docker Compose.
 
-Tecnologias Utilizadas
+
+
+Tecnologias Utilizadas:
+
 Aqui estão as principais tecnologias usadas no projeto:
 
 Python: Linguagem principal do projeto, escolhida por sua simplicidade e suporte a programação assíncrona.
@@ -17,11 +20,11 @@ Docker Compose: Usado para orquestrar o servidor e o banco de dados em um único
 
 
 
-Instruções para Rodar o Projeto
+Instruções para Rodar o Projeto:
 Siga os passos abaixo para configurar e executar o projeto localmente.
 
 
-Pré-requisitos
+Pré-requisitos:
 Docker: Instale o Docker em docker.com.
 
 Docker Compose: Geralmente já vem com o Docker. Caso contrário, siga as instruções em docs.docker.com/compose/install.
@@ -31,6 +34,7 @@ Clone o repositório do projeto:
 
 git clone https://github.com/Felipeserpa01/Desafio_Back.git
 cd seu-repositorio
+
 
 
 Passo 2: Inicie o Projeto com Docker Compose
@@ -46,10 +50,12 @@ Iniciar o banco de dados PostgreSQL.
 Iniciar o servidor WebSocket na porta 8000.
 
 
+
 Passo 3: Conecte-se ao Servidor WebSocket
 Abra um navegador web e acesse:
 
 localhost:8000 
+
 
 
 Passo 4: Teste as Funcionalidades
@@ -63,6 +69,7 @@ O servidor responderá com o valor de Fibonacci(n) (ex: Fibonacci(10) = 55).
 
 3. Gestão de Usuários Conectados
 Quando um cliente se conecta ou desconecta, o banco de dados PostgreSQL é atualizado automaticamente.
+
 
 
 Passo 5: Parar o Projeto
