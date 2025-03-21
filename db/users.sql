@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS connected_users (
+  id SERIAL PRIMARY KEY,
+  clientId TEXT NOT NULL
+);
